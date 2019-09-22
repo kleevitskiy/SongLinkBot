@@ -1,12 +1,13 @@
 #Main file
 import time
+import sys
 import requests
 import telepot
 from telepot.loop import MessageLoop
 from telepot.delegate import (
     per_chat_id, create_open, pave_event_space)
 
-BOT_TOKEN = "902181386:AAG8Hx5ov7Qqoon3KYFYBwwI-Ok2DMs7v1Q"
+BOT_TOKEN = sys.argv[1]
 BaseAPIURL = 'https://api.song.link/v1-alpha.1/links'
 
 WelcomeMessage = open('WelcomeMessageShort.md').read()
