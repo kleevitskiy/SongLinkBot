@@ -1,5 +1,5 @@
 FROM python:3
-ARG BOT_TOKEN
+ENV BOT_TOKEN  
 ADD SongLinkBot.py /
 ADD WelcomeMessageShort.md /
 RUN pip install telepot
