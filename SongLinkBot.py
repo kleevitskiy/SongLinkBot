@@ -51,10 +51,13 @@ class Traveler(telepot.helper.ChatHandler):
             self.sender.sendMessage(WelcomeMessage, parse_mode='Markdown')
         else:
             url = ''
-            for e in msg['entities']:
-                if e['type'] == 'url':
-                    url = msg['text'][e['offset']:e['offset']+e['length']]
-                    break
+            try:
+                for e in msg['entities']:
+                    if e['type'] == 'url':
+                        url = msg['text'][e['offset']:e['offset']+e['length']]
+                        break
+            except:
+                url = ''
             s = requests.session()
             payload = {'userCountry': msg['from']['language_code'], 'url': url}
             r = s.get(BaseAPIURL,params = payload)
