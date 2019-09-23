@@ -50,21 +50,20 @@ class Traveler(telepot.helper.ChatHandler):
         if msg['text'].lower() == '/start':
             self.sender.sendMessage(WelcomeMessage, parse_mode='Markdown')
         else:
-            url = ''
             try:
                 for e in msg['entities']:
                     if e['type'] == 'url':
                         url = msg['text'][e['offset']:e['offset']+e['length']]
+                        s = requests.session()
+                        payload = {'userCountry': msg['from']['language_code'], 'url': url}
+                        r = s.get(BaseAPIURL, params=payload)
+                        if r:
+                            r_message = format_answer(r.json())
+                            self.sender.sendMessage(r_message, parse_mode='Markdown')
+                        else:
+                            self.sender.sendMessage("I've found nothing\N{Disappointed Face}")
                         break
             except:
-                url = ''
-            s = requests.session()
-            payload = {'userCountry': msg['from']['language_code'], 'url': url}
-            r = s.get(BaseAPIURL,params = payload)
-            if r:
-                r_message = format_answer(r.json())
-                self.sender.sendMessage(r_message, parse_mode = 'Markdown')
-            else:
                 self.sender.sendMessage("I've found nothing\N{Disappointed Face}")
 
 
