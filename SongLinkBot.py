@@ -50,7 +50,11 @@ class Traveler(telepot.helper.ChatHandler):
         if msg['text'].lower() == '/start':
             self.sender.sendMessage(WelcomeMessage, parse_mode='Markdown')
         else:
-            url = msg['entities'][1]['url']
+            url = ''
+            for e in msg['entities']:
+                if e['type'] == 'url':
+                    url = msg['text'][e['offset']:e['offset']+e['length']]
+                    break
             s = requests.session()
             payload = {'userCountry': msg['from']['language_code'], 'url': url}
             r = s.get(BaseAPIURL,params = payload)
