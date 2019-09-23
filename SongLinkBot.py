@@ -14,7 +14,7 @@ WelcomeMessage = open('WelcomeMessageShort.md').read()
 
 def format_answer(response):
     links = response['linksByPlatform']
-    answer = 'I''ve found it on the following services:\N{Grinning Face}\n'
+    answer = "I've found it on the following services:\N{Grinning Face}\n"
     if 'yandex' in links:
         answer = answer + '[Yandex](' +links['yandex']['url'] + ')\n'
     if 'appleMusic' in links:
@@ -50,14 +50,15 @@ class Traveler(telepot.helper.ChatHandler):
         if msg['text'].lower() == '/start':
             self.sender.sendMessage(WelcomeMessage, parse_mode='Markdown')
         else:
+            url = msg['entities'][1]['url']
             s = requests.session()
-            payload = {'userCountry': msg['from']['language_code'], 'url': msg['text']}
+            payload = {'userCountry': msg['from']['language_code'], 'url': url}
             r = s.get(BaseAPIURL,params = payload)
             if r:
                 r_message = format_answer(r.json())
                 self.sender.sendMessage(r_message, parse_mode = 'Markdown')
             else:
-                self.sender.sendMessage('I''ve found nothing\N{Disappointed Face}')
+                self.sender.sendMessage("I've found nothing\N{Disappointed Face}")
 
 
 bot = telepot.DelegatorBot(BOT_TOKEN, [pave_event_space()(per_chat_id(), create_open, Traveler, timeout=600),])
