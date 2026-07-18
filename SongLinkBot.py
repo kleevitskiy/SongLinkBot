@@ -39,7 +39,7 @@ PLATFORM_LABELS = {
 
 API_PLATFORM_ALIASES = {
     "spotify": ("spotify",),
-    "apple_music": ("apple_music", "apple-music", "apple"),
+    "apple_music": ("apple", "applemusic", "apple_music", "apple-music"),
     "deezer": ("deezer",),
     "tidal": ("tidal",),
     "isrc": ("isrc",),
@@ -170,7 +170,17 @@ async def call_musiclink(platform: str, identifier: str) -> Optional[dict]:
             results = payload.get("data")
             if payload.get("success") and isinstance(results, list) and results:
                 return results[0]
-            return None
+
+            # A route alias may exist but reject this identifier while still
+            # returning HTTP 200. Try the remaining aliases before failing.
+            LOGGER.warning(
+                "MusicLink lookup returned no result for alias=%s, "
+                "identifier=%s, response=%r",
+                alias,
+                identifier,
+                payload,
+            )
+            continue
 
     return None
 
