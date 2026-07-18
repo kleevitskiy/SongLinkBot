@@ -1,4 +1,4 @@
-Hi, I'm a simple bot to search for music. I use [Song.link](https://song.link/) and [iTunes](https://www.apple.com/itunes/)
+Hi, I'm a simple bot to search for music. I use [MusicLink](https://ml.jadquir.com/) and [iTunes](https://www.apple.com/itunes/)
 
 You can talk to me in the following ways:
 
@@ -9,12 +9,9 @@ You can talk to me in the following ways:
 + Just send me a link to any song or album on almost any music service and I tell you where else it can be found
 
 The following services are supported now:
-+ [Yandex](https://music.yandex.ru/home)
-+ [Apple Music](https://www.apple.com/apple-music/)
-+ [Google Play Music](https://play.google.com/music/listen)
-+ [YouTube](https://youtube.com)
-+ [YouTube Music](https://music.youtube.com)
-+ [SoundCloud](https://soundcloud.com)
 + [Spotify](https://spotify.com)
-+ [Pandora](https://pandora.com)
 + [Deezer](https://deezer.com)
++ [Tidal](https://tidal.com)
++ [Apple Music](https://www.apple.com/apple-music/)
++ [MusicLink](https://ml.jadquir.com/)
++ [ISRC](https://isrc.ifpi.org/)
