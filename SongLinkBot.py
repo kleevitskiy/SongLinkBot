@@ -98,6 +98,15 @@ def parse_music_input(value: str) -> Optional[tuple[str, str]]:
     host = parsed.netloc.lower().split(":", 1)[0]
     parts = [part for part in parsed.path.split("/") if part]
 
+    # Inline search results use a public MusicLink URL whose ``q`` parameter
+    # contains the original Apple Music track URL. Unwrap it before resolving.
+    if host in {"ml.jadquir.com", "www.ml.jadquir.com"}:
+        wrapped_urls = parse_qs(parsed.query).get("q")
+        if wrapped_urls:
+            wrapped_url = wrapped_urls[0].strip()
+            if wrapped_url and wrapped_url != value:
+                return parse_music_input(wrapped_url)
+
     if host in {"open.spotify.com", "play.spotify.com"} and len(parts) >= 2 and parts[0] == "track":
         return "spotify", parts[1]
 
