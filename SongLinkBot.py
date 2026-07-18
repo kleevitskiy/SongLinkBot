@@ -293,7 +293,9 @@ async def inline_query(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
                 title=f"{track_name} — {artist_name}",
                 description=track.get("collectionName"),
                 thumbnail_url=track.get("artworkUrl100") or track.get("artworkUrl60"),
-                input_message_content=InputTextMessageContent(prefilled_musiclink_url(apple_url)),
+                # Send the direct Apple Music track URL. The normal message
+                # handler will resolve it through MusicLink after selection.
+                input_message_content=InputTextMessageContent(apple_url),
                 reply_markup=SEARCH_KEYBOARD,
             )
         )
